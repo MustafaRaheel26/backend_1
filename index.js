@@ -1,7 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import comments from './comments.js';
-import productsRoute from './routes/productsRoute.js'
+import commentsRoute from './routes/commentsRoute.js';
+import postsRoute from './routes/postsRoute.js';
+import albumsRoute from './routes/albumsRoute.js';
+import photosRoute from './routes/photosRoute.js';
 
 const app = express();
 dotenv.config();
@@ -27,11 +29,16 @@ app.get('/',(req,res)=>{
 //     res.status(200).send({status:200,message:"success",data:comments})
 // })
 
-// app.get('*',(req,res)=>{
-//     res.status(404).send("Page not found")
-// })
 
-app.use('/products',productsRoute);
+
+app.use('/posts',postsRoute);
+app.use('/posts/comments',commentsRoute);
+app.use('/albums',albumsRoute);
+app.use('/albums/photos',photosRoute);
+
+app.get('*',(req,res)=>{
+    res.status(404).send("Page not found")
+})
 
 
 const PORT = process.env.PORT;
